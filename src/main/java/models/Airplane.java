@@ -20,7 +20,7 @@ public class Airplane implements Serializable {
     public void setSeatForClass(int totalCapacity) {
         this.quantityEconomic = (int) Math.floor(totalCapacity * 0.60);
         this.quantityExecutive = (int) Math.floor(totalCapacity * 0.30);
-        this.quantityFirstClass = totalCapacity - (quantityEconomic + quantityExecutive); // garante soma exata
+        this.quantityFirstClass = totalCapacity - (quantityEconomic + quantityExecutive);
     }
 
     public String getModel() {
