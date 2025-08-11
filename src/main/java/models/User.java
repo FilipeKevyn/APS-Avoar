@@ -10,7 +10,6 @@ public class User implements Serializable {
     private String name;
     private String email;
     private String password;
-    private double pendingValueTickets;
 
     private List<Ticket> tickets = new ArrayList<>();
 
@@ -22,7 +21,6 @@ public class User implements Serializable {
 
     public void bookTickets(List<Ticket> tickets){
         setTickets(tickets);
-        setPendingValueTickets(calculateValueTickets());
     }
 
     public String viewHistory(){
@@ -41,21 +39,10 @@ public class User implements Serializable {
 
     public void cancelTicket(Ticket ticket){
         tickets.remove(ticket);
-        pendingValueTickets = pendingValueTickets - ticket.getValue();
     }
 
     public void cancelAllTickets(){
         tickets.clear();
-        pendingValueTickets = 0;
-    }
-
-    public boolean makePayment(double paymentValue){
-        if (paymentValue == pendingValueTickets){
-            pendingValueTickets = 0;
-            tickets.stream().forEach(ticket -> ticket.setPayment(new Payment("Pix")));
-        }
-
-        throw new PaymentInvalidException("Valor do pagamento incorreto. Valor pendente: R$ " + pendingValueTickets);
     }
 
     public double calculateValueTickets(){
@@ -84,14 +71,6 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public double getTotalValueTickets() {
-        return pendingValueTickets;
-    }
-
-    public void setPendingValueTickets(double valueTickets) {
-        pendingValueTickets = valueTickets;
     }
 
     public List<Ticket> getTickets() {

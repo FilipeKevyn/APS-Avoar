@@ -8,6 +8,7 @@ import java.util.List;
 
 public class LoginController {
     private UserRepository userRepo;
+    private User currentUser;
 
     public LoginController(UserRepository repo) {
         this.userRepo = repo;
@@ -24,5 +25,13 @@ public class LoginController {
         }
         userRepo.save(new User(name, email, password));
         return true;
+    }
+
+    public void logout() {
+        this.currentUser = null;
+    }
+
+    public String getCurrentUser() {
+        return (currentUser != null) ? currentUser.getName() : null;
     }
 }

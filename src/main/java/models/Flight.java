@@ -7,6 +7,8 @@ public class Flight implements Serializable {
     private String code;
     private LocalDate departureDate;
     private LocalDate arrivalDate;
+    private String departureCity;
+    private String arrivalCity;
     private double priceEconomic;
     private double priceExecutive;
     private double priceFirstClass;
@@ -14,8 +16,10 @@ public class Flight implements Serializable {
 
     private Airplane airplane;
 
-    public Flight(Airplane airplane, double defaultPrice){
+    public Flight(Airplane airplane, String departureCity, String arrivalCity, double defaultPrice){
         this.airplane = airplane;
+        this.departureCity = departureCity;
+        this.arrivalCity = arrivalCity;
         setPrices(defaultPrice);
     }
 
@@ -78,5 +82,31 @@ public class Flight implements Serializable {
 
     public void setAirplane(Airplane airplane) {
         this.airplane = airplane;
+    }
+
+    public String getDepartureCity() {
+        return departureCity;
+    }
+
+    public void setDepartureCity(String departureCity) {
+        this.departureCity = departureCity;
+    }
+
+    public String getArrivalCity() {
+        return arrivalCity;
+    }
+
+    public void setArrivalCity(String arrivalCity) {
+        this.arrivalCity = arrivalCity;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Voo %s: %s -> %s",
+                code,
+                departureCity,
+                arrivalCity
+        );
     }
 }
