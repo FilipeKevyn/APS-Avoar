@@ -24,7 +24,7 @@ public class Flight implements Serializable {
     }
 
     private void setPrices(double defaultPrice) {
-        priceFirstClass = defaultPrice * 1.50;
+        priceFirstClass = defaultPrice * 1.70;
         priceExecutive = defaultPrice * 1.25;
         priceEconomic = defaultPrice * 1.05;
     }
