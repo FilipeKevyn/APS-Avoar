@@ -1,7 +1,6 @@
-package Swing;
+package views;
 
 import com.toedter.calendar.JDateChooser;
-import controller.FlightController;
 import models.Flight;
 import models.Ticket;
 import models.User;

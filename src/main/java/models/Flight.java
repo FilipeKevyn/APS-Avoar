@@ -14,16 +14,13 @@ public class Flight implements Serializable {
     private double priceFirstClass;
 
 
-    private Airplane airplane;
-
-    public Flight(Airplane airplane, String departureCity, String arrivalCity, double defaultPrice){
-        this.airplane = airplane;
+    public Flight(String departureCity, String arrivalCity, double defaultPrice){
         this.departureCity = departureCity;
         this.arrivalCity = arrivalCity;
-        setPrices(defaultPrice);
+        calculatePrices(defaultPrice);
     }
 
-    private void setPrices(double defaultPrice) {
+    private void calculatePrices(double defaultPrice) {
         priceFirstClass = defaultPrice * 1.70;
         priceExecutive = defaultPrice * 1.25;
         priceEconomic = defaultPrice * 1.05;
@@ -74,14 +71,6 @@ public class Flight implements Serializable {
 
     public void setPriceFirstClass(double priceFirstClass) {
         this.priceFirstClass = priceFirstClass;
-    }
-
-    public Airplane getAirplane() {
-        return airplane;
-    }
-
-    public void setAirplane(Airplane airplane) {
-        this.airplane = airplane;
     }
 
     public String getDepartureCity() {

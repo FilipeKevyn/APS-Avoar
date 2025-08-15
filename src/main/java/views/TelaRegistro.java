@@ -1,4 +1,4 @@
-package Swing;
+package views;
 
 import controller.UserController;
 
@@ -9,76 +9,79 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class TelaLogin extends JFrame {
-
+public class TelaRegistro extends JFrame {
     private UserController userController;
 
-    // Componentes da interface
-    private JLabel labelTitulo, labelEmail, labelSenha;
-    private JTextField campoEmail;
+    private JLabel labelTitulo, labelNome, labelEmail, labelSenha;
+    private JTextField campoNome, campoEmail;
     private JPasswordField campoSenha;
-    private JButton botaoVoltar, botaoEntrar;
+    private JButton botaoVoltar, botaoRegistrar;
 
-    public TelaLogin(JFrame telaAnterior, UserController userController) { // Recebe a tela inicial como parâmetro
+    public TelaRegistro(JFrame telaAnterior, UserController userController) { // Recebe a tela inicial como parâmetro
         // --- CONFIGURAÇÕES DA JANELA ---
-        setTitle("Login");
-        setSize(400, 350);
+        setTitle("Registrar-se");
+        setSize(400, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Fecha apenas esta janela
         setLocationRelativeTo(null);
         setLayout(null);
 
         // --- TÍTULO ---
-        labelTitulo = new JLabel("Login");
+        labelTitulo = new JLabel("Registrar-se");
         labelTitulo.setFont(new Font("Arial", Font.BOLD, 30));
-        labelTitulo.setBounds(150, 20, 100, 40);
+        labelTitulo.setBounds(110, 20, 200, 40);
         add(labelTitulo);
 
         // --- FORMULÁRIO ---
+        labelNome = new JLabel("Nome:");
+        labelNome.setBounds(50, 90, 80, 25);
+        add(labelNome);
+
+        campoNome = new JTextField();
+        campoNome.setBounds(120, 90, 200, 25);
+        add(campoNome);
+
         labelEmail = new JLabel("Email:");
-        labelEmail.setBounds(50, 90, 80, 25);
+        labelEmail.setBounds(50, 130, 80, 25);
         add(labelEmail);
 
         campoEmail = new JTextField();
-        campoEmail.setBounds(120, 90, 200, 25);
+        campoEmail.setBounds(120, 130, 200, 25);
         add(campoEmail);
 
         labelSenha = new JLabel("Senha:");
-        labelSenha.setBounds(50, 130, 80, 25);
+        labelSenha.setBounds(50, 170, 80, 25);
         add(labelSenha);
 
         campoSenha = new JPasswordField();
-        campoSenha.setBounds(120, 130, 200, 25);
+        campoSenha.setBounds(120, 170, 200, 25);
         add(campoSenha);
 
         // --- BOTÕES ---
         botaoVoltar = new JButton("Voltar");
-        botaoVoltar.setBounds(50, 250, 100, 30);
+        botaoVoltar.setBounds(50, 280, 100, 30);
         add(botaoVoltar);
 
-        botaoEntrar = new JButton("Entrar");
-        botaoEntrar.setBounds(220, 250, 100, 30);
-        add(botaoEntrar);
+        botaoRegistrar = new JButton("Entrar");
+        botaoRegistrar.setBounds(220, 280, 100, 30);
+        add(botaoRegistrar);
 
         // --- AÇÕES DOS BOTÕES ---
 
-        // Ação para o botão Voltar
-
-        botaoEntrar.addActionListener(new ActionListener() {
+        botaoRegistrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (userController.login(campoEmail.getText(), campoSenha.getText())){
-                    TelaMenuUsuario telaMenuUsuario = new TelaMenuUsuario(telaAnterior, userController); // Passa a instância da tela atual
-                    telaMenuUsuario.setVisible(true);
-                    setVisible(false); // Esconde a tela inicial
+                if (userController.register(campoNome.getText(), campoEmail.getText(), campoSenha.getText())){
+                    System.out.println("Registrado");
                 }
             }
         });
 
+        // Ação para o botão Voltar
         botaoVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 telaAnterior.setVisible(true); // Mostra a tela inicial novamente
-                dispose(); // Fecha a tela de login
+                dispose(); // Fecha a tela de registro
             }
         });
 

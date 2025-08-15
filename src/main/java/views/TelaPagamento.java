@@ -1,8 +1,7 @@
-package Swing;
+package views;
 
 import controller.PaymentController;
 import exceptions.PaymentInvalidException;
-import models.Payment;
 import models.Ticket;
 import models.User;
 

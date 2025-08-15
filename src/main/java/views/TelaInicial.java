@@ -1,4 +1,4 @@
-package Swing;
+package views;
 
 import controller.UserController;
 import repositories.UserRepository;
