@@ -19,24 +19,6 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public void bookTickets(List<Ticket> tickets){
-        setTickets(tickets);
-    }
-
-    public String viewHistory(){
-        StringBuilder history = new StringBuilder();
-        if (tickets.isEmpty()){
-            history.append("Nenhum ticket encontrado. \n");
-        }
-        else {
-            for (Ticket ticket : tickets) {
-                history.append(ticket.toString()).append("\n");
-            }
-        }
-
-        return history.toString();
-    }
-
     public void cancelTicket(Ticket ticket){
         tickets.remove(ticket);
     }

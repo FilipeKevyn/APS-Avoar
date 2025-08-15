@@ -7,16 +7,20 @@ import java.util.List;
 
 public class Ticket implements Serializable {
     private String classAirplane;
-    private LocalDate date;
+    private LocalDate departureDate;
     private Double value;
 
     private List<Flight> flights = new ArrayList<>();
     private Payment payment;
 
-    public Ticket(String classAirplane, String date, Double value) {
+    public Ticket(Flight flight, String classAirplane, Double value) {
+        flights.add(flight);
         this.classAirplane = classAirplane;
-        this.date = LocalDate.parse(date);
         this.value = value;
+    }
+
+    public LocalDate getDepartureDate() {
+        return flights.get(0).getDepartureDate();
     }
 
     public String getClassAirplane() {
@@ -28,11 +32,11 @@ public class Ticket implements Serializable {
     }
 
     public LocalDate getDate() {
-        return date;
+        return departureDate;
     }
 
     public void setDate(LocalDate date) {
-        this.date = date;
+        departureDate = date;
     }
 
     public Double getValue() {
@@ -60,6 +64,6 @@ public class Ticket implements Serializable {
     }
 
     public String toString() {
-        return String.format("Data: %s | Classe: %s | Valor: R$ %.2f", date, classAirplane, value);
+        return String.format("Data: %s | Classe: %s | Valor: R$ %.2f", getDepartureDate(), classAirplane, value);
     }
 }

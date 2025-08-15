@@ -2,6 +2,8 @@ package models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Flight implements Serializable {
     private String code;
@@ -13,6 +15,7 @@ public class Flight implements Serializable {
     private double priceExecutive;
     private double priceFirstClass;
 
+    public List<Ticket> tickets = new ArrayList<>();
 
     public Flight(String departureCity, String arrivalCity, double defaultPrice){
         this.departureCity = departureCity;
@@ -87,6 +90,14 @@ public class Flight implements Serializable {
 
     public void setArrivalCity(String arrivalCity) {
         this.arrivalCity = arrivalCity;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
     }
 
     @Override

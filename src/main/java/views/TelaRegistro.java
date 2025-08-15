@@ -1,6 +1,7 @@
 package views;
 
 import controller.UserController;
+import exceptions.PaymentInvalidException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,13 +26,11 @@ public class TelaRegistro extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
 
-        // --- TÍTULO ---
         labelTitulo = new JLabel("Registrar-se");
         labelTitulo.setFont(new Font("Arial", Font.BOLD, 30));
         labelTitulo.setBounds(110, 20, 200, 40);
         add(labelTitulo);
 
-        // --- FORMULÁRIO ---
         labelNome = new JLabel("Nome:");
         labelNome.setBounds(50, 90, 80, 25);
         add(labelNome);
@@ -61,31 +60,24 @@ public class TelaRegistro extends JFrame {
         botaoVoltar.setBounds(50, 280, 100, 30);
         add(botaoVoltar);
 
-        botaoRegistrar = new JButton("Entrar");
+        botaoRegistrar = new JButton("Registrar");
         botaoRegistrar.setBounds(220, 280, 100, 30);
         add(botaoRegistrar);
 
-        // --- AÇÕES DOS BOTÕES ---
-
-        botaoRegistrar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (userController.register(campoNome.getText(), campoEmail.getText(), campoSenha.getText())){
-                    System.out.println("Registrado");
-                }
+        botaoRegistrar.addActionListener(e -> {
+            if (userController.register(campoNome.getText(), campoEmail.getText(), campoSenha.getText())){
+                JOptionPane.showMessageDialog(this, "Usuário Registrado");
             }
         });
 
-        // Ação para o botão Voltar
         botaoVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                telaAnterior.setVisible(true); // Mostra a tela inicial novamente
-                dispose(); // Fecha a tela de registro
+                telaAnterior.setVisible(true);
+                dispose();
             }
         });
 
-        // Garante que a tela anterior reapareça se o usuário fechar no "X"
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

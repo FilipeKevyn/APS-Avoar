@@ -1,6 +1,5 @@
 package views;
 
-import com.toedter.calendar.JDateChooser;
 import models.Flight;
 import models.Ticket;
 import models.User;
@@ -34,15 +33,6 @@ public class TelaVoo extends JFrame {
         labelTitulo.setBounds(180, 20, 200, 40);
         add(labelTitulo);
 
-        JLabel labelData = new JLabel("Data do Voo:");
-        labelData.setBounds(20, 230, 100, 25);
-        add(labelData);
-
-        JDateChooser seletorData = new JDateChooser();
-        seletorData.setBounds(120, 230, 150, 25);
-        seletorData.setDateFormatString("yyyy-MM-dd"); // formato usado no Ticket
-        add(seletorData);
-
         // Adiciona seletor de quantidade para cada classe
         criarSeletorDeClasse("Primeira Classe", 80);
         criarSeletorDeClasse("Classe Executiva", 130);
@@ -62,25 +52,18 @@ public class TelaVoo extends JFrame {
         });
 
         botaoPagar.addActionListener(e -> {
-            if (seletorData.getDate() == null) {
-                JOptionPane.showMessageDialog(this, "Selecione a data do voo.");
-                return;
-            }
-
-            String dataFormatada = new java.text.SimpleDateFormat("yyyy-MM-dd").format(seletorData.getDate());
-
             ArrayList<Ticket> tickets = new ArrayList<>();
             double total = 0;
             for (String classe : camposQuantidade.keySet()) {
                 int quantidade = Integer.parseInt(camposQuantidade.get(classe).getText());
                 total += quantidade * precos.get(classe);
                 if (quantidade > 0){
-                    tickets.add(new Ticket(classe, dataFormatada, precos.get(classe)));
+                    tickets.add(new Ticket(flight, classe, precos.get(classe)));
                 }
             }
 
             if (total > 0) {
-                TelaPagamento telaPagamento = new TelaPagamento(this, total, user, tickets);
+                TelaPagamento telaPagamento = new TelaPagamento(telaAnterior, total, user, tickets);
                 telaPagamento.setVisible(true);
                 setVisible(false);
             } else {

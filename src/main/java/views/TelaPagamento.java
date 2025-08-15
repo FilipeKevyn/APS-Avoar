@@ -54,7 +54,7 @@ public class TelaPagamento extends JFrame {
 
         botaoPagar.addActionListener(e -> {
             double valorPagamento = Double.parseDouble(campoPagamento.getText());
-            if (paymentController.verifyPayment(valorTotal, valorPagamento)){
+            if (paymentController.verifyPayment(valorTotal, valorPagamento) != null){
                 JOptionPane.showMessageDialog(this, "Pagamento realizado com sucesso!");
                 user.addTickets(tickets);
             }

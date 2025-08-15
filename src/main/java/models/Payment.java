@@ -7,16 +7,18 @@ public class Payment implements Serializable {
     private String paymentMethod;
     private LocalDateTime dateTime;
 
+    public Payment(){}
+
     public Payment(String paymentMethod) {
         this.paymentMethod = paymentMethod;
         this.dateTime = LocalDateTime.now();
     }
 
-    public boolean verifyPayment(double valueReceived, double valueCharged){
-        if (valueReceived == valueCharged) {
-            return true;
+    public Payment verifyPayment(double valueReceived, double valueCharged){
+        if (valueReceived == valueCharged){
+            return new Payment("Pix");
         }
-        return false;
+        return null;
     }
 
     public String getPaymentMethod() {

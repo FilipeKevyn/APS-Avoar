@@ -12,11 +12,6 @@ public class UserController {
         this.repository = repository;
     }
 
-    public String viewHistory(String nome){
-        models.User user = repository.findByUsername(nome);
-        return user.viewHistory();
-    }
-
     public boolean login(String username, String password) {
         models.User user = repository.findByUsername(username);
         currentUser = user;

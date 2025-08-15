@@ -38,9 +38,9 @@ public class FlightRepository {
         flight4.setDepartureDate(LocalDate.of(2026, 1, 10));
         flight4.setArrivalDate(LocalDate.of(2026, 1, 10));
 
-        flights.add(flight2);
         flights.add(flight1);
+        flights.add(flight2);
         flights.add(flight3);
-        flights.add(flight3);
+        flights.add(flight4);
     }
 }
