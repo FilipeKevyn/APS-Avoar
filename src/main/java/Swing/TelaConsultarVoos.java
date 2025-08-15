@@ -2,6 +2,7 @@ package Swing;
 
 import controller.FlightController;
 import models.Flight;
+import models.User;
 import repositories.FlightRepository;
 
 import javax.swing.*;
@@ -12,6 +13,8 @@ import java.util.List;
 
 public class TelaConsultarVoos extends JFrame {
 
+    private User user;
+
     private FlightController flightController = new FlightController(new FlightRepository());
     private List<Flight> flights = flightController.getFlights();
 
@@ -19,7 +22,7 @@ public class TelaConsultarVoos extends JFrame {
     private JButton botaoVoltar;
     private JPanel painelVoos; // Painel para adicionar os botões dos voos
 
-    public TelaConsultarVoos(JFrame telaAnterior) {
+    public TelaConsultarVoos(JFrame telaAnterior, User user) {
         setTitle("Consultar Voos");
         setSize(450, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -42,7 +45,7 @@ public class TelaConsultarVoos extends JFrame {
             JButton botaoVoo = new JButton(flight.toString());
             botaoVoo.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40)); // Ajusta a largura do botão
             botaoVoo.addActionListener(e -> {
-                TelaVoo telaVoo = new TelaVoo(this, flight);
+                TelaVoo telaVoo = new TelaVoo(this, flight, user);
                 telaVoo.setVisible(true);
                 setVisible(false);
             });

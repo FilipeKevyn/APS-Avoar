@@ -1,23 +1,24 @@
 package controller;
 
+import models.Ticket;
 import models.User;
 import repositories.UserRepository;
 
 public class UserController {
     private UserRepository repository;
-    private User currentUser;
+    private models.User currentUser;
 
     public UserController(UserRepository repository) {
         this.repository = repository;
     }
 
     public String viewHistory(String nome){
-        User user = repository.findByUsername(nome);
+        models.User user = repository.findByUsername(nome);
         return user.viewHistory();
     }
 
     public boolean login(String username, String password) {
-        User user = repository.findByUsername(username);
+        models.User user = repository.findByUsername(username);
         currentUser = user;
         return user != null && user.getPassword().equals(password);
     }
@@ -26,7 +27,7 @@ public class UserController {
         if (repository.existsByEmail(email)) {
             return false;
         }
-        repository.save(new User(name, email, password));
+        repository.save(new models.User(name, email, password));
         return true;
     }
 
@@ -36,5 +37,13 @@ public class UserController {
 
     public void logout(){
         currentUser = null;
+    }
+
+    public void cancelTicket(User user, Ticket ticket){
+        user.cancelTicket(ticket);
+    }
+
+    public void cancelAllTicket(User user){
+        user.cancelAllTickets();
     }
 }

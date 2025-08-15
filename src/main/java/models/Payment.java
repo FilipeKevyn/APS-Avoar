@@ -6,12 +6,17 @@ import java.time.LocalDateTime;
 public class Payment implements Serializable {
     private String paymentMethod;
     private LocalDateTime dateTime;
-    private String status = "pending";
 
     public Payment(String paymentMethod) {
         this.paymentMethod = paymentMethod;
         this.dateTime = LocalDateTime.now();
-        this.status = "done";
+    }
+
+    public boolean verifyPayment(double valueReceived, double valueCharged){
+        if (valueReceived == valueCharged) {
+            return true;
+        }
+        return false;
     }
 
     public String getPaymentMethod() {
@@ -28,13 +33,5 @@ public class Payment implements Serializable {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 }

@@ -1,7 +1,6 @@
 package Swing;
 
 import controller.UserController;
-import models.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +16,7 @@ public class TelaMenuUsuario extends JFrame {
     private JButton botaoConsultarVoos, botaoVerificarTickets, botaoSair;
 
     // Construtor que recebe o nome do usuário
-    public TelaMenuUsuario(JFrame telaInicial, UserController userController) {
+    public TelaMenuUsuario(JFrame telaInicial, UserController user) {
         // --- CONFIGURAÇÕES DA JANELA ---
         setTitle("Volare - Menu Principal");
         setSize(400, 350);
@@ -45,7 +44,7 @@ public class TelaMenuUsuario extends JFrame {
         add(botaoSair);
 
         // --- LABEL DO USUÁRIO ---
-        labelUsuario = new JLabel("Usuário: " + userController.getCurrentUser().getName());
+        labelUsuario = new JLabel("Usuário: " + user.getCurrentUser().getName());
         labelUsuario.setBounds(10, 280, 200, 25);
         add(labelUsuario);
 
@@ -55,9 +54,18 @@ public class TelaMenuUsuario extends JFrame {
         botaoConsultarVoos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Abre a tela de consulta de voos
-                TelaConsultarVoos telaVoos = new TelaConsultarVoos(TelaMenuUsuario.this);
+                TelaConsultarVoos telaVoos = new TelaConsultarVoos(TelaMenuUsuario.this, user.getCurrentUser());
                 telaVoos.setVisible(true);
+                setVisible(false); // Esconde o menu
+            }
+        });
+
+        botaoVerificarTickets.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Cria a nova tela passando a instância atual (this), o usuário e o controller
+                TelaVerificarTickets telaTickets = new TelaVerificarTickets(TelaMenuUsuario.this, user);
+                telaTickets.setVisible(true);
                 setVisible(false); // Esconde o menu
             }
         });
@@ -65,7 +73,7 @@ public class TelaMenuUsuario extends JFrame {
         botaoSair.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                userController.logout();
+                user.logout();
                 telaInicial.setVisible(true); // Mostra a tela inicial novamente
                 dispose(); // Fecha a tela de login
             }

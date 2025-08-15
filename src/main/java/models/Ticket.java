@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Ticket implements Serializable {
-    private String code;
-    private String seat;
     private String classAirplane;
     private LocalDate date;
     private Double value;
@@ -15,27 +13,10 @@ public class Ticket implements Serializable {
     private List<Flight> flights = new ArrayList<>();
     private Payment payment;
 
-    public Ticket(String code, String seat, String classAirplane, LocalDate date) {
-        this.code = code;
-        this.seat = seat;
+    public Ticket(String classAirplane, String date, Double value) {
         this.classAirplane = classAirplane;
-        this.date = date;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getSeat() {
-        return seat;
-    }
-
-    public void setSeat(String seat) {
-        this.seat = seat;
+        this.date = LocalDate.parse(date);
+        this.value = value;
     }
 
     public String getClassAirplane() {
@@ -78,15 +59,7 @@ public class Ticket implements Serializable {
         this.payment = payment;
     }
 
-    @Override
     public String toString() {
-        return String.format(
-                "------------- Ticket %s --------------\n" +
-                        "Assento: %-15s %s\n" +
-                        "Classe:  %-15s R$ %.2f\n",
-                code,
-                seat, date,
-                classAirplane, value
-        );
+        return String.format("Data: %s | Classe: %s | Valor: R$ %.2f", date, classAirplane, value);
     }
 }

@@ -1,13 +1,17 @@
 package Swing;
 
+import com.toedter.calendar.JDateChooser;
 import controller.FlightController;
 import models.Flight;
+import models.Ticket;
+import models.User;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +19,7 @@ public class TelaVoo extends JFrame {
     private Map<String, Double> precos = new HashMap<>();
     private Map<String, JTextField> camposQuantidade = new HashMap<>();
 
-    public TelaVoo(JFrame telaAnterior, Flight flight) {
+    public TelaVoo(JFrame telaAnterior, Flight flight, User user) {
         precos.put("Primeira Classe", flight.getPriceFirstClass());
         precos.put("Classe Executiva", flight.getPriceExecutive());
         precos.put("Classe Econômica", flight.getPriceEconomic());
@@ -30,6 +34,15 @@ public class TelaVoo extends JFrame {
         labelTitulo.setFont(new Font("Arial", Font.BOLD, 30));
         labelTitulo.setBounds(180, 20, 200, 40);
         add(labelTitulo);
+
+        JLabel labelData = new JLabel("Data do Voo:");
+        labelData.setBounds(20, 230, 100, 25);
+        add(labelData);
+
+        JDateChooser seletorData = new JDateChooser();
+        seletorData.setBounds(120, 230, 150, 25);
+        seletorData.setDateFormatString("yyyy-MM-dd"); // formato usado no Ticket
+        add(seletorData);
 
         // Adiciona seletor de quantidade para cada classe
         criarSeletorDeClasse("Primeira Classe", 80);
@@ -50,14 +63,25 @@ public class TelaVoo extends JFrame {
         });
 
         botaoPagar.addActionListener(e -> {
+            if (seletorData.getDate() == null) {
+                JOptionPane.showMessageDialog(this, "Selecione a data do voo.");
+                return;
+            }
+
+            String dataFormatada = new java.text.SimpleDateFormat("yyyy-MM-dd").format(seletorData.getDate());
+
+            ArrayList<Ticket> tickets = new ArrayList<>();
             double total = 0;
             for (String classe : camposQuantidade.keySet()) {
                 int quantidade = Integer.parseInt(camposQuantidade.get(classe).getText());
                 total += quantidade * precos.get(classe);
+                if (quantidade > 0){
+                    tickets.add(new Ticket(classe, dataFormatada, precos.get(classe)));
+                }
             }
 
             if (total > 0) {
-                TelaPagamento telaPagamento = new TelaPagamento(this, total);
+                TelaPagamento telaPagamento = new TelaPagamento(this, total, user, tickets);
                 telaPagamento.setVisible(true);
                 setVisible(false);
             } else {

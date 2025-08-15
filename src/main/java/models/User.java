@@ -80,4 +80,8 @@ public class User implements Serializable {
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
     }
+
+    public void addTickets(List<Ticket> tickets){
+        this.tickets.addAll(tickets);
+    }
 }

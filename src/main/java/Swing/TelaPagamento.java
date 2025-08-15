@@ -1,14 +1,22 @@
 package Swing;
 
+import controller.PaymentController;
+import exceptions.PaymentInvalidException;
+import models.Payment;
+import models.Ticket;
+import models.User;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.DecimalFormat;
+import java.util.List;
 
 public class TelaPagamento extends JFrame {
+    private PaymentController paymentController = new PaymentController();
 
-    public TelaPagamento(JFrame telaAnterior, double valorTotal) {
+    public TelaPagamento(JFrame telaAnterior, double valorTotal, User user, List<Ticket> tickets) {
         setTitle("Pagamento");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -30,6 +38,7 @@ public class TelaPagamento extends JFrame {
         campoPagamento.setBounds(80, 130, 240, 30);
         add(campoPagamento);
 
+
         JButton botaoVoltar = new JButton("Voltar");
         botaoVoltar.setBounds(50, 200, 100, 30);
         add(botaoVoltar);
@@ -43,8 +52,17 @@ public class TelaPagamento extends JFrame {
             dispose();
         });
 
+
         botaoPagar.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "Pagamento realizado com sucesso!");
+            double valorPagamento = Double.parseDouble(campoPagamento.getText());
+            if (paymentController.verifyPayment(valorTotal, valorPagamento)){
+                JOptionPane.showMessageDialog(this, "Pagamento realizado com sucesso!");
+                user.addTickets(tickets);
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Pagamento não autorizado");
+                throw new PaymentInvalidException("Valor insuficiente");
+            }
         });
 
         addWindowListener(new WindowAdapter() {
