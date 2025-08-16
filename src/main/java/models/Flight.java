@@ -2,25 +2,29 @@ package models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Flight implements Serializable {
     private String code;
     private LocalDate departureDate;
     private LocalDate arrivalDate;
+    private String departureCity;
+    private String arrivalCity;
     private double priceEconomic;
     private double priceExecutive;
     private double priceFirstClass;
 
+    public List<Ticket> tickets = new ArrayList<>();
 
-    private Airplane airplane;
-
-    public Flight(Airplane airplane, double defaultPrice){
-        this.airplane = airplane;
-        setPrices(defaultPrice);
+    public Flight(String departureCity, String arrivalCity, double defaultPrice){
+        this.departureCity = departureCity;
+        this.arrivalCity = arrivalCity;
+        calculatePrices(defaultPrice);
     }
 
-    private void setPrices(double defaultPrice) {
-        priceFirstClass = defaultPrice * 1.50;
+    private void calculatePrices(double defaultPrice) {
+        priceFirstClass = defaultPrice * 1.70;
         priceExecutive = defaultPrice * 1.25;
         priceEconomic = defaultPrice * 1.05;
     }
@@ -72,11 +76,37 @@ public class Flight implements Serializable {
         this.priceFirstClass = priceFirstClass;
     }
 
-    public Airplane getAirplane() {
-        return airplane;
+    public String getDepartureCity() {
+        return departureCity;
     }
 
-    public void setAirplane(Airplane airplane) {
-        this.airplane = airplane;
+    public void setDepartureCity(String departureCity) {
+        this.departureCity = departureCity;
+    }
+
+    public String getArrivalCity() {
+        return arrivalCity;
+    }
+
+    public void setArrivalCity(String arrivalCity) {
+        this.arrivalCity = arrivalCity;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Voo %s: %s -> %s",
+                code,
+                departureCity,
+                arrivalCity
+        );
     }
 }

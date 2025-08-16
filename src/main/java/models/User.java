@@ -10,7 +10,6 @@ public class User implements Serializable {
     private String name;
     private String email;
     private String password;
-    private double pendingValueTickets;
 
     private List<Ticket> tickets = new ArrayList<>();
 
@@ -20,42 +19,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public void bookTickets(List<Ticket> tickets){
-        setTickets(tickets);
-        setPendingValueTickets(calculateValueTickets());
-    }
-
-    public String viewHistory(){
-        StringBuilder history = new StringBuilder();
-        if (tickets.isEmpty()){
-            history.append("Nenhum ticket encontrado. \n");
-        }
-        else {
-            for (Ticket ticket : tickets) {
-                history.append(ticket.toString()).append("\n");
-            }
-        }
-
-        return history.toString();
-    }
-
     public void cancelTicket(Ticket ticket){
         tickets.remove(ticket);
-        pendingValueTickets = pendingValueTickets - ticket.getValue();
     }
 
     public void cancelAllTickets(){
         tickets.clear();
-        pendingValueTickets = 0;
-    }
-
-    public boolean makePayment(double paymentValue){
-        if (paymentValue == pendingValueTickets){
-            pendingValueTickets = 0;
-            tickets.stream().forEach(ticket -> ticket.setPayment(new Payment("Pix")));
-        }
-
-        throw new PaymentInvalidException("Valor do pagamento incorreto. Valor pendente: R$ " + pendingValueTickets);
     }
 
     public double calculateValueTickets(){
@@ -86,19 +55,15 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public double getTotalValueTickets() {
-        return pendingValueTickets;
-    }
-
-    public void setPendingValueTickets(double valueTickets) {
-        pendingValueTickets = valueTickets;
-    }
-
     public List<Ticket> getTickets() {
         return tickets;
     }
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public void addTickets(List<Ticket> tickets){
+        this.tickets.addAll(tickets);
     }
 }
