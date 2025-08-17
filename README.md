@@ -9,5 +9,5 @@ Volare é uma aplicação robusta e fácil de usar para a compra de passagens a�
 Toda a documentação técnica e de negócio do projeto está disponível na pasta [docs](./docs/).
 Você encontrará os seguintes documentos
   - [Diagramas](./docs/diagramas.pdf)
-  - [Documento de visão](./docs/documento_de_visao)
-  - [CheckList de Diagramas](./docs/conscistencia_de_diagramas) 
+  - [Documento de visão](./docs/documento_de_visao.pdf)
+  - [CheckList de Diagramas](./docs/conscistencia_de_diagramas.pdf) 
