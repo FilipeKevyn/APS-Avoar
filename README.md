@@ -10,4 +10,4 @@ Toda a documentação técnica e de negócio do projeto está disponível na pas
 Você encontrará os seguintes documentos
   - [Diagramas](./docs/diagramas.pdf)
   - [Documento de visão](./docs/documento_de_visao.pdf)
-  - [CheckList de Diagramas](./docs/conscistencia_de_diagramas.pdf) 
+  - [CheckList de Diagramas](./docs/consistencia_de_diagramas.pdf) 
